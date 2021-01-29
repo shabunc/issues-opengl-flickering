@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        jcenter()
+    }
+
+    resolutionStrategy {
+        def kotlin_plugins = ["org.jetbrains.kotlin.jvm"]
+
+        eachPlugin {
+            def pluginId = requested.id.id
+
+            if (pluginId in kotlin_plugins) {
+                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${gradle.kotlinVersion}")
+            }
+        }
+    }
+}
+
+
+gradle.ext {
+    kotlinVersion = "1.4.10"
+}
+
+include ":frame"

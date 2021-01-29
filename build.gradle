@@ -1,0 +1,10 @@
+plugins {
+  id 'org.jetbrains.kotlin.jvm' apply false
+}
+
+allprojects { preProject ->
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+}
