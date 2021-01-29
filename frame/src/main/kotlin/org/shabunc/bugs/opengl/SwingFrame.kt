@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import javax.swing.JFrame
 import kotlin.system.exitProcess
+import com.jogamp.opengl.GL2
 
 
 private fun createGlPanel(): GLCanvas {
@@ -22,7 +23,6 @@ private fun createGlPanel(): GLCanvas {
 }
 
 private class SwingFrame : JFrame() {
-
     val canvas = createGlPanel()
 
     init {
@@ -47,18 +47,22 @@ fun initApp() {
         }
 
         override fun init(glautodrawable: GLAutoDrawable) {
-            glautodrawable.gl.gL2.glClearColor(1f, 0f, 0f, 1f)
+            val gl = glautodrawable.gl.gL2
+            gl.glClearColor(1f, 0f, 0.6f, 1f)
             val animator = FPSAnimator(glautodrawable, 60, false)
             animator.start()
         }
 
+        override fun display(glautodrawable: GLAutoDrawable) {
+            glautodrawable.gl.gL2.glClear(GL2.GL_COLOR_BUFFER_BIT or GL2.GL_DEPTH_BUFFER_BIT)
+        }
+
         override fun dispose(glautodrawable: GLAutoDrawable) {}
-        override fun display(glautodrawable: GLAutoDrawable) {}
     })
 
     frame.isVisible = true
 }
 
 fun main() {
-    val frame = initApp()
+    initApp()
 }
